@@ -1,56 +1,24 @@
 #!/bin/bash
 
-EINS=I
-FUENF=V
-ZEHN=X
-FUENFZIG=L
-HUNDERT=C
-FUENFHUNDERT=D
-TAUSEND=M
-ZAHL=$1
-STELLE=${#ZAHL}
-for (( i=$STELLE ; i>=1 ; i-- ))
+NUMBER=$1
+DECIMAL_DIGIT=${#NUMBER}
+ROEMIC_NUMBERS=(I V X L C D M)
+for (( i=$(($DECIMAL_DIGIT-1))*2; i>=0 ; $((i-=2)) ))
 do
-	if [ $i == 4 ]
-	then
-		KLEIN=$TAUSEND
-	elif [ $i == 3 ]
-        then
-     	        GROSS=$FUENFHUNDERT
-		KLEIN=$HUNDERT
-		KLEIN_NEXT=$TAUSEND
-        elif [ $i == 2 ]
-        then
-		GROSS=$FUENFZIG
-                KLEIN=$ZEHN
-		KLEIN_NEXT=$HUNDERT
-        elif [ $i == 1 ]
-        then
-		GROSS=$FUENF
-                KLEIN=$EINS
-		KLEIN_NEXT=$ZEHN
-	fi
-	STELLE_ROEMISCH=$(($ZAHL%10**$i/10**($i-1)))
-	case $STELLE_ROEMISCH in
-	
-		1)	ERGEBNIS+=$KLEIN
-		;;
-		2)	ERGEBNIS+=$KLEIN$KLEIN
-		;;
-		3)	ERGEBNIS+=$KLEIN$KLEIN$KLEIN
-		;;
-		4)	ERGEBNIS+=$KLEIN$GROSS
-		;;
-		5)	ERGEBNIS+=$GROSS
-		;;
-		6)	ERGEBNIS+=$GROSS$KLEIN
-		;;
-		7)	ERGEBNIS+=$GROSS$KLEIN$KLEIN
-		;;
-		8)	ERGEBNIS+=$GROSS$KLEIN$KLEIN$KLEIN
-		;;
-		9)	ERGEBNIS+=$KLEIN$KLEIN_NEXT
-		;;
-	esac
+	FIRST=${ROEMIC_NUMBERS[$i]}
+	SECOND=${ROEMIC_NUMBERS[$i+1]}
+	THIRD=${ROEMIC_NUMBERS[$i+2]}
+	DECIMAL_ROEMIC=$(($NUMBER%10**($i/2+1)/10**($i/2)))
+	PRE_SOLUTION=""
+	for (( j=1; j<=$DECIMAL_ROEMIC; j++ ))
+	do
+		PRE_SOLUTION+=$FIRST
+		case $j in
+			4) PRE_SOLUTION=$FIRST$SECOND 	;;
+			5) PRE_SOLUTION=$SECOND	 	;;
+			9) PRE_SOLUTION=$FIRST$THIRD	;;			
+		esac
+	done
+	SOLUTION+=$PRE_SOLUTION
 done
-echo $ERGEBNIS
+echo $SOLUTION
