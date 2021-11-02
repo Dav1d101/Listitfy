@@ -9,6 +9,6 @@ then
 else
 	LIST=$LIST_CHOICE
 fi
-$(printf "%s" "sed s/^/$LIST/ $TEXT")
+sed s/^/$LIST/ $TEXT
 
 
