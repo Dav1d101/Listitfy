@@ -3,7 +3,7 @@
 NUMBER=$1
 DECIMAL_DIGIT=${#NUMBER}
 ROEMIC_NUMBERS=(I V X L C D M)
-for (( i=$(($DECIMAL_DIGIT-1))*2; i>=0 ; $((i-=2)) ))
+for (( i=$(($DECIMAL_DIGIT-1))*2; i>=0 ; i-=2 ))
 do
 	FIRST=${ROEMIC_NUMBERS[$i]}
 	SECOND=${ROEMIC_NUMBERS[$i+1]}
