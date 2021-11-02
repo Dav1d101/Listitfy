@@ -9,7 +9,7 @@ FUENFHUNDERT=D
 TAUSEND=M
 ZAHL=$1
 STELLE=${#ZAHL}
-for (( i=$STELLE ; i>=1 ; $((i=i-1)) ))
+for (( i=$STELLE ; i>=1 ; i-- ))
 do
 	if [ $i == 4 ]
 	then
