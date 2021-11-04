@@ -5,7 +5,7 @@ SUBJECT=$2
 MESSAGE=$3
 
 {
-echo "HELO Saturn"
+echo "HELO $(hostname)"
 echo "MAIL FROM:<david.iljuchin@gmail.com>"
 echo "RCPT TO:<$RECEIVER>"
 echo "DATA"
