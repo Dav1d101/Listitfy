@@ -1,15 +1,16 @@
 #!/bin/bash
 
-RECEIVER=$1
-SUBJECT=$2
-MESSAGE=$3
+SENDER=$1
+RECEIVER=$2
+SUBJECT=$3
+MESSAGE=$4
 
 {
 echo "HELO $(hostname)"
-echo "MAIL FROM:<david.iljuchin@gmail.com>"
+echo "MAIL FROM:<$SENDER>"
 echo "RCPT TO:<$RECEIVER>"
 echo "DATA"
-echo "From:<david.iljuchin@gmail.com>"
+echo "From:<$SENDER>"
 echo "To:<$RECEIVER>"
 echo "Subject: $SUBJECT"
 echo "$MESSAGE"
